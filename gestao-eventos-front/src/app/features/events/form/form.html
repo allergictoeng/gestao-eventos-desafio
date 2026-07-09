@@ -1,0 +1,113 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">{{ isEditMode ? 'Editar Evento' : 'Novo Evento' }}</h2>
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="mb-3">
+          <label class="form-label w-100">
+            Título
+            <input
+              type="text"
+              formControlName="titulo"
+              class="form-control"
+              [class.is-invalid]="
+                (form.get('titulo')?.invalid && form.get('titulo')?.touched) ||
+                form.get('titulo')?.hasError('serverError')
+              "
+            />
+            <small class="text-muted d-block mt-1">Tamanho máx: 100 caracteres</small>
+          </label>
+          <div
+            class="invalid-feedback"
+            [class.d-block]="
+              (form.get('titulo')?.invalid && form.get('titulo')?.touched) ||
+              form.get('titulo')?.hasError('serverError')
+            "
+          >
+            {{ form.get('titulo')?.getError('serverError') || 'Título é obrigatório.' }}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label w-100">
+            Local
+            <input
+              type="text"
+              formControlName="local"
+              class="form-control"
+              [class.is-invalid]="
+                (form.get('local')?.invalid && form.get('local')?.touched) ||
+                form.get('local')?.hasError('serverError')
+              "
+            />
+            <small class="text-muted d-block mt-1">Tamanho máx: 200 caracteres</small>
+          </label>
+          <div
+            class="invalid-feedback"
+            [class.d-block]="
+              (form.get('local')?.invalid && form.get('local')?.touched) ||
+              form.get('local')?.hasError('serverError')
+            "
+          >
+            {{ form.get('local')?.getError('serverError') || 'Local é obrigatório.' }}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label w-100">
+            Descrição
+            <textarea
+              formControlName="descricao"
+              class="form-control"
+              rows="3"
+              [class.is-invalid]="
+                (form.get('descricao')?.invalid && form.get('descricao')?.touched) ||
+                form.get('descricao')?.hasError('serverError')
+              "
+            ></textarea>
+            <small class="text-muted d-block mt-1">Tamanho máx: 1000 caracteres</small>
+          </label>
+          <div
+            class="invalid-feedback"
+            [class.d-block]="
+              (form.get('descricao')?.invalid && form.get('descricao')?.touched) ||
+              form.get('descricao')?.hasError('serverError')
+            "
+          >
+            {{ form.get('descricao')?.getError('serverError') || 'Descrição é obrigatória.' }}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label w-100">
+            Data e Hora
+            <input
+              type="datetime-local"
+              formControlName="dataHora"
+              class="form-control"
+              [class.is-invalid]="
+                (form.get('dataHora')?.invalid && form.get('dataHora')?.touched) ||
+                form.get('dataHora')?.hasError('serverError')
+              "
+            />
+          </label>
+          <div
+            class="invalid-feedback"
+            [class.d-block]="
+              (form.get('dataHora')?.invalid && form.get('dataHora')?.touched) ||
+              form.get('dataHora')?.hasError('serverError')
+            "
+          >
+            {{ form.get('dataHora')?.getError('serverError') || 'Data e Hora são obrigatórias.' }}
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid && !form.errors">
+          Salvar
+        </button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+</div>
